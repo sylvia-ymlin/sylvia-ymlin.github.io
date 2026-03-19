@@ -1,0 +1,220 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Fitz's World — Custom Styles
+   Based on MkDocs Material
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Google Font: Noto Sans SC for Chinese ──────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Variables (overrides Material defaults) ────────────────────────── */
+:root {
+  --fitz-indigo: #3f51b5;
+  --fitz-indigo-light: #5c6bc0;
+  --fitz-accent: #536dfe;
+  --fitz-radius: 12px;
+  --fitz-card-shadow: 0 4px 20px rgba(63, 81, 181, 0.08);
+  --fitz-card-shadow-hover: 0 8px 32px rgba(63, 81, 181, 0.18);
+  --fitz-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Global Typography ──────────────────────────────────────────────────── */
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ── Hero Section ───────────────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(63, 81, 181, 0.05) 0%,
+    rgba(83, 109, 254, 0.03) 100%
+  );
+  border-radius: var(--fitz-radius);
+  margin-bottom: 2rem;
+}
+
+[data-md-color-scheme="slate"] .hero {
+  background: linear-gradient(
+    135deg,
+    rgba(63, 81, 181, 0.12) 0%,
+    rgba(83, 109, 254, 0.06) 100%
+  );
+}
+
+.hero h1 {
+  font-size: 3rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 0.25rem !important;
+  background: linear-gradient(135deg, var(--fitz-indigo), var(--fitz-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero h3 {
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  opacity: 0.7;
+  margin-bottom: 1.5rem !important;
+  color: var(--md-default-fg-color) !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+/* ── Grid Cards ─────────────────────────────────────────────────────────── */
+.md-typeset .grid.cards > :is(ul, ol) > li,
+.md-typeset .grid > .card {
+  border: 1px solid rgba(63, 81, 181, 0.12);
+  border-radius: var(--fitz-radius);
+  box-shadow: var(--fitz-card-shadow);
+  transition: var(--fitz-transition);
+}
+
+.md-typeset .grid.cards > :is(ul, ol) > li:hover,
+.md-typeset .grid > .card:hover {
+  border-color: rgba(63, 81, 181, 0.3);
+  box-shadow: var(--fitz-card-shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.md-typeset .md-button {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: var(--fitz-transition);
+  letter-spacing: 0.01em;
+}
+
+.md-typeset .md-button--primary {
+  background-color: var(--fitz-indigo);
+  border-color: var(--fitz-indigo);
+}
+
+.md-typeset .md-button--primary:hover {
+  background-color: var(--fitz-indigo-light);
+  border-color: var(--fitz-indigo-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.35);
+}
+
+/* ── Header & Navigation ────────────────────────────────────────────────── */
+.md-header {
+  box-shadow: 0 1px 12px rgba(63, 81, 181, 0.12);
+}
+
+.md-tabs {
+  background-color: var(--md-primary-fg-color);
+}
+
+/* ── Profile Card (About page) ──────────────────────────────────────────── */
+.profile-card {
+  background: linear-gradient(
+    135deg,
+    rgba(63, 81, 181, 0.06) 0%,
+    rgba(83, 109, 254, 0.03) 100%
+  );
+  border: 1px solid rgba(63, 81, 181, 0.15);
+  border-radius: var(--fitz-radius);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ── Tables ─────────────────────────────────────────────────────────────── */
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--fitz-card-shadow);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: rgba(63, 81, 181, 0.08);
+  font-weight: 600;
+}
+
+/* ── Code Blocks ────────────────────────────────────────────────────────── */
+.md-typeset .highlight {
+  border-radius: 8px;
+}
+
+.md-typeset code {
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+}
+
+/* ── Admonitions ────────────────────────────────────────────────────────── */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 8px;
+  box-shadow: var(--fitz-card-shadow);
+}
+
+/* ── Blog ────────────────────────────────────────────────────────────────── */
+.md-typeset .md-post__meta {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.md-footer {
+  background-color: var(--md-primary-fg-color);
+}
+
+.md-footer-meta {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(63, 81, 181, 0.35);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 81, 181, 0.6);
+}
+
+/* ── Responsive tweaks ───────────────────────────────────────────────────── */
+@media screen and (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* ── Dark mode adjustments ───────────────────────────────────────────────── */
+[data-md-color-scheme="slate"] {
+  --fitz-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --fitz-card-shadow-hover: 0 8px 32px rgba(63, 81, 181, 0.3);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background-color: rgba(63, 81, 181, 0.15);
+}
