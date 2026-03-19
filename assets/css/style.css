@@ -3,14 +3,14 @@
    ============================================ */
 
 :root {
-  --bg: #f0eeeb;
-  --bg-card: #e6e4e0;
+  --bg: #F5F4EB;
+  --bg-card: #E8E8E0;
   --text: #2c2c2c;
-  --text-secondary: #7a7d82;
-  --text-tertiary: #b0b4ba;
-  --border: #dcdad6;
-  --accent: #5b7fa6;
-  --accent-warm: #8fa8c0;
+  --text-secondary: #8C8C8C;
+  --text-tertiary: #B0BCC6;
+  --border: #D8D8D8;
+  --accent: #91A3B0;
+  --accent-warm: #B0BCC6;
   --nav-height: 56px;
   --max-w: 860px;
   --radius: 10px;
@@ -53,7 +53,7 @@ body::after {
   right: -120px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(91, 127, 166, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(176, 188, 198, 0.1) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
