@@ -1,8 +1,8 @@
 {
-  "name": "ymlin's World · 仰梅的小站",
-  "shortName": "ymlin",
-  "author": "ymlin",
-  "tagline": "An explorer who codes, writes, and wanders. / 爱折腾的探险者。",
+  "name": "yml's World",
+  "shortName": "yml",
+  "author": "yml",
+  "tagline": "An explorer who codes, writes, and wanders.",
   "url": "https://sylvia-ymlin.github.io",
   "avatar": "https://github.com/sylvia-ymlin.png",
   "github": "https://github.com/sylvia-ymlin",
@@ -25,8 +25,8 @@
       "date": "December 2024"
     },
     {
-      "text": "致虚极，守静笃。万物并作，吾以观复。",
-      "from": "老子 · 道德经",
+      "text": "Empty yourself of everything. Let the mind rest at peace. The ten thousand things rise and fall while the Self watches their return.",
+      "from": "Laozi · Tao Te Ching",
       "date": "January 2025"
     }
   ]
