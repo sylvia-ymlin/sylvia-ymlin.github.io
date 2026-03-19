@@ -18,16 +18,5 @@
     { "label": "Life", "url": "/life/" },
     { "label": "About", "url": "/about/" }
   ],
-  "musings": [
-    {
-      "text": "The best way to predict the future is to create it.",
-      "from": "Peter Drucker",
-      "date": "December 2024"
-    },
-    {
-      "text": "Empty yourself of everything. Let the mind rest at peace. The ten thousand things rise and fall while the Self watches their return.",
-      "from": "Laozi · Tao Te Ching",
-      "date": "January 2025"
-    }
-  ]
+  "musings": []
 }
