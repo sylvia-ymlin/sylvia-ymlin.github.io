@@ -1,0 +1,33 @@
+{
+  "name": "Fitz's World · 仰梅的小站",
+  "shortName": "Fitz",
+  "author": "Yangmei Lin (Fitz)",
+  "tagline": "An explorer who codes, writes, and wanders. / 爱折腾的探险者。",
+  "url": "https://sylvia-ymlin.github.io",
+  "avatar": "https://github.com/sylvia-ymlin.png",
+  "github": "https://github.com/sylvia-ymlin",
+  "email": "gm.ymlin@gmail.com",
+  "social": {
+    "github": "sylvia-ymlin",
+    "email": "gm.ymlin@gmail.com"
+  },
+  "nav": [
+    { "label": "Home", "url": "/" },
+    { "label": "Posts", "url": "/posts/" },
+    { "label": "Projects", "url": "/projects/" },
+    { "label": "Life", "url": "/life/" },
+    { "label": "About", "url": "/about/" }
+  ],
+  "musings": [
+    {
+      "text": "The best way to predict the future is to create it.",
+      "from": "Peter Drucker",
+      "date": "December 2024"
+    },
+    {
+      "text": "致虚极，守静笃。万物并作，吾以观复。",
+      "from": "老子 · 道德经",
+      "date": "January 2025"
+    }
+  ]
+}

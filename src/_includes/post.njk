@@ -1,0 +1,42 @@
+---
+layout: base.njk
+---
+<div class="container">
+  <a href="/posts/" class="back-link">
+    ← Back to posts
+  </a>
+
+  <header class="post-header">
+    <p class="post-category">{{ category or "Post" }}</p>
+    <h1 class="post-title">{{ title }}</h1>
+    <div class="post-meta-row">
+      <span class="post-meta-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        {{ page.date | readableDate }}
+      </span>
+      {% if readingTime %}
+      <span class="post-meta-item">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        {{ readingTime }} min read
+      </span>
+      {% endif %}
+    </div>
+    {% if tags and tags.length %}
+    <div class="post-tags">
+      {% for tag in tags %}
+      {% if tag != "posts" and tag != "notes" %}
+      <span class="tag">{{ tag }}</span>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  <article class="prose reveal">
+    {{ content | safe }}
+  </article>
+
+  <hr style="border: none; border-top: 1px solid var(--border); margin: 3rem 0 2rem;" />
+  <a href="/posts/" class="back-link">← Back to posts</a>
+  <div style="height: 3rem;"></div>
+</div>

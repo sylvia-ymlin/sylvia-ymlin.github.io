@@ -1,0 +1,42 @@
+---
+layout: base.njk
+title: Posts
+permalink: /posts/
+---
+<div class="container">
+  <div class="page-header reveal">
+    <p class="page-title">Writing</p>
+    <p class="page-count">{{ collections.posts | length }}</p>
+    <p class="page-subtitle">All posts · 所有文章</p>
+  </div>
+
+  <hr class="section-divider" />
+
+  {# Group by year #}
+  {% set years = [] %}
+  {% for post in collections.posts | reverse %}
+    {% set yr = post.date | year %}
+    {% if yr not in years %}
+      {% set years = (years.push(yr), years) %}
+    {% endif %}
+  {% endfor %}
+
+  {% for yr in years %}
+  <div class="year-group reveal">
+    <p class="year-label">{{ yr }}</p>
+    {% for post in collections.posts | reverse %}
+      {% if post.date | year == yr %}
+      <a href="{{ post.url }}" class="posts-grid-item" style="display:flex;">
+        <div class="posts-grid-left">
+          <span class="posts-grid-category">{{ post.data.category or "Post" }}</span>
+          <span class="posts-grid-title">{{ post.data.title }}</span>
+        </div>
+        <span class="posts-grid-date">{{ post.date | readableDate }}</span>
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <div style="height: 3rem;"></div>
+</div>

@@ -1,0 +1,181 @@
+---
+layout: base.njk
+---
+<div class="container">
+
+  {# ── Hero ── #}
+  <section class="hero">
+    <div class="hero-left">
+      <h1 class="hero-greeting reveal">
+        Hi, I'm <strong>Fitz</strong> 👋。<br />
+        A software developer &amp; writer.
+      </h1>
+      <p class="hero-tagline reveal">
+        {{ site.tagline }}
+      </p>
+
+      {% set allPosts = collections.posts %}
+      {% set postCount = allPosts | length %}
+      {% set wordCount = 0 %}
+
+      <div class="hero-stats reveal">
+        <div class="stat-item">
+          <span class="stat-number">{{ postCount }}</span>
+          <span class="stat-label">posts</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">2,026</span>
+          <span class="stat-label">days</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">curiosity</span>
+        </div>
+      </div>
+
+      <div class="hero-socials reveal">
+        <a href="{{ site.github }}" target="_blank" rel="noopener" class="social-btn" title="GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+        <a href="mailto:{{ site.email }}" class="social-btn" title="Email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+        <a href="/posts/index.xml" class="social-btn" title="RSS">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <img src="{{ site.avatar }}" alt="{{ site.shortName }}" class="hero-avatar reveal" />
+  </section>
+
+  <hr class="section-divider" />
+
+  {# ── Recently Writing ── #}
+  {% set recentPosts = collections.posts | reverse | limit(3) %}
+  {% if recentPosts.length %}
+  <div class="reveal">
+    <p class="section-label">Recently Writing</p>
+    {% set firstPost = recentPosts[0] %}
+    <a href="{{ firstPost.url }}" class="featured-post">
+      <div class="featured-meta">Post · {{ firstPost.date | relativeDate }}</div>
+      <div class="featured-title">{{ firstPost.data.title }}</div>
+    </a>
+  </div>
+
+  <hr class="section-divider" />
+
+  {# ── Recent Writing list ── #}
+  <div class="reveal">
+    <p class="section-label">Recent Writing</p>
+    <ul class="post-list">
+      {% for post in recentPosts %}
+      <li class="post-list-item">
+        <a href="{{ post.url }}" style="display:contents;">
+          <div class="post-list-left">
+            <span class="post-list-meta">{{ post.data.category or "Post" }} · {{ post.date | relativeDate }}</span>
+            <span class="post-list-title">{{ post.data.title }}</span>
+          </div>
+          <span class="post-list-date">{{ post.date | shortDate }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <hr class="section-divider" />
+
+  {# ── Musings ── #}
+  <div class="two-col reveal">
+    <div>
+      <p class="col-label">Notes</p>
+      {% for post in collections.posts | reverse | limit(3) %}
+      <a href="{{ post.url }}" style="display:block;">
+        <div class="quote-card">
+          <p>{{ post.data.description or post.data.title }}</p>
+          <p class="quote-from">— {{ post.date | shortDate }}, {{ post.date | year }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    <div>
+      <p class="col-label">Musings</p>
+      {% for musing in site.musings %}
+      <div class="musing-card">
+        <p class="musing-text">"{{ musing.text }}"</p>
+        <p class="musing-date">{{ musing.from }} · {{ musing.date }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  {# ── Writing through the seasons ── #}
+  {% if collections.posts.length > 0 %}
+  <div class="seasons-section reveal">
+    <p class="seasons-label">Writing through the seasons</p>
+    <div class="seasons-grid">
+      <div class="season-col">
+        <h3>Spring</h3>
+        {% for post in collections.posts | reverse %}
+          {% set m = post.date | monthName %}
+          {% if m == "March" or m == "April" or m == "May" %}
+          <div class="season-post-item">
+            <a href="{{ post.url }}" class="season-post-title">{{ post.data.title }}</a>
+            <span class="season-post-month">{{ m | first(3) }}</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="season-col">
+        <h3>Summer</h3>
+        {% for post in collections.posts | reverse %}
+          {% set m = post.date | monthName %}
+          {% if m == "June" or m == "July" or m == "August" %}
+          <div class="season-post-item">
+            <a href="{{ post.url }}" class="season-post-title">{{ post.data.title }}</a>
+            <span class="season-post-month">{{ m | first(3) }}</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="season-col">
+        <h3>Autumn</h3>
+        {% for post in collections.posts | reverse %}
+          {% set m = post.date | monthName %}
+          {% if m == "September" or m == "October" or m == "November" %}
+          <div class="season-post-item">
+            <a href="{{ post.url }}" class="season-post-title">{{ post.data.title }}</a>
+            <span class="season-post-month">{{ m | first(3) }}</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="season-col">
+        <h3>Winter</h3>
+        {% for post in collections.posts | reverse %}
+          {% set m = post.date | monthName %}
+          {% if m == "December" or m == "January" or m == "February" %}
+          <div class="season-post-item">
+            <a href="{{ post.url }}" class="season-post-title">{{ post.data.title }}</a>
+            <span class="season-post-month">{{ m | first(3) }}</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <p style="text-align: right; font-size: 0.78rem; color: var(--text-tertiary); margin-top: 1.5rem;">
+      {{ collections.posts.length }} post{{ "s" if collections.posts.length != 1 }} total
+    </p>
+  </div>
+  {% endif %}
+
+  <div style="height: 2rem;"></div>
+</div>

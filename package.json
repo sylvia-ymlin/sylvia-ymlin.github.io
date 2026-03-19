@@ -1,0 +1,17 @@
+{
+  "name": "shiro-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "start": "npx @11ty/eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "author": "Yangmei Lin (Fitz)",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.5",
+    "luxon": "^3.7.2"
+  }
+}
