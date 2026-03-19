@@ -13,7 +13,7 @@ Hello, world. Welcome to my little corner of the internet.
 
 This is the first post on this site, and as is tradition, I'll use it to introduce myself and this space.
 
-My name is Fitz (Yangmei Lin). I'm a developer who loves building things that are useful, reading about ideas that are strange, and wandering to places that are beautiful.
+My name is ymlin. I'm a developer who loves building things that are useful, reading about ideas that are strange, and wandering to places that are beautiful.
 
 ## Why a Personal Site?
 
