@@ -1,0 +1,42 @@
+---
+pagination:
+  data: projectPages
+  size: 1
+  alias: repo
+permalink: "/projects/{{ repo.slug }}/"
+eleventyExcludeFromCollections: true
+layout: base.njk
+---
+{% set title = repo.name %}
+<div class="container">
+  <a href="/projects/" class="back-link">← Projects</a>
+
+  <div class="post-header">
+    <p class="post-category">Project</p>
+    <h1 class="post-title">{{ repo.name }}</h1>
+    <div class="post-meta-row">
+      {% if repo.language %}
+      <span class="post-meta-item">{{ repo.language }}</span>
+      {% endif %}
+      {% if repo.stars > 0 %}
+      <span class="post-meta-item">★ {{ repo.stars }}</span>
+      {% endif %}
+      <a href="{{ repo.url }}" target="_blank" rel="noopener" class="post-meta-item" style="color: var(--accent);">View on GitHub →</a>
+    </div>
+    {% if repo.description %}
+    <p style="color: var(--text-secondary); margin-top: 0.8rem; font-size: 0.92rem;">{{ repo.description }}</p>
+    {% endif %}
+  </div>
+
+  {% if repo.coverImage %}
+  <div class="hero-banner" style="margin-bottom: 2rem;">
+    <img src="{{ repo.coverImage }}" alt="{{ repo.name }}" class="hero-banner-img">
+  </div>
+  {% endif %}
+
+  <div class="prose">
+    {{ repo.readme | markdownify | safe }}
+  </div>
+
+  <div style="height: 4rem;"></div>
+</div>

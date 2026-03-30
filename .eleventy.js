@@ -1,6 +1,10 @@
 const { DateTime } = require("luxon");
+const markdownIt = require("markdown-it");
+const md = markdownIt({ html: true, linkify: true });
 
 module.exports = function(eleventyConfig) {
+  // Render markdown string to HTML
+  eleventyConfig.addFilter("markdownify", (str) => (str ? md.render(str) : ""));
   // Copy static assets
   eleventyConfig.addPassthroughCopy("src/assets");
 
