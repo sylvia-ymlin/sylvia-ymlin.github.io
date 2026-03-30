@@ -5,6 +5,13 @@ const md = markdownIt({ html: true, linkify: true });
 module.exports = function(eleventyConfig) {
   // Render markdown string to HTML
   eleventyConfig.addFilter("markdownify", (str) => (str ? md.render(str) : ""));
+
+  // Extract 1–2 initials from a repo name like "vkb-oscillator-analysis" → "VO"
+  eleventyConfig.addFilter("initials", (name) => {
+    const parts = name.split(/[-_\s]+/).filter(Boolean);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  });
   // Copy static assets
   eleventyConfig.addPassthroughCopy("src/assets");
 

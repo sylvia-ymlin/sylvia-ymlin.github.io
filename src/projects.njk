@@ -18,13 +18,8 @@ permalink: /projects/
        {% if not repo.readme %}target="_blank" rel="noopener"{% endif %}
        class="project-card">
 
-      <div class="project-cover{% if not repo.coverImage %} project-cover--lang{% endif %}"
-           {% if not repo.coverImage %}data-lang="{{ repo.language }}"{% endif %}>
-        {% if repo.coverImage %}
-        <img src="{{ repo.coverImage }}" alt="{{ repo.name }}" loading="lazy">
-        {% else %}
-        <span class="project-cover-lang-label">{{ repo.language or "Code" }}</span>
-        {% endif %}
+      <div class="project-cover" data-lang="{{ repo.language }}">
+        <span class="project-monogram">{{ repo.name | initials }}</span>
       </div>
 
       <div class="project-name">
