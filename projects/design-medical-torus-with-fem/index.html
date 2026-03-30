@@ -20,6 +20,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.querySelector('.prose'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+  
 </head>
 <body>
 
@@ -136,7 +142,7 @@ $$</p>
 $$</p>
 <h3>Problem 2</h3>
 <p align="center">
-  <img src="figures/Problem%20A_2.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/Problem%20A_2.png" width="70%">
 </p>
 <p>The first sub-figure illustrates the approximation solution $u_h$ for this problem. Through the Residual $R(u_h)$, we observe that the numerical solution is accurate in most intervals but exhibits significant error near the segmentation points of $f(x)$ at $x \in {-0.8, -0.2, 0.2, 0.8}$. It is also reflected in the mesh-size distribution. Since the algorithm refines the elements with the biggest contribution to the error, most of the new points inserted concentrate on the intervals near the mentioned segmentation points. Ultimately, we achieved an error smaller than TOL when $N = 40$.</p>
 <hr>
@@ -186,7 +192,7 @@ $$</p>
 $$</p>
 <p>By implementing it in Matlab with $h_{\max} = { \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{16}, \frac{1}{32} }$, we obtain the numerical convergence rates in the energy norm as ${ 0.7429, 1.9856, 1.4346, 1.1710 }$. Figure 2 plots $h_{\max}$ versus the energy norm of the error and $h_{\max}$ versus $h^\gamma_{\max}$. We can see that these two lines are almost parallel, indicating good convergence performance.</p>
 <p align="center">
-  <img src="figures/ProblemB1_TheConvergenceRateAnalysis.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB1_TheConvergenceRateAnalysis.png" width="70%">
 </p>
 <p>The convergence rate $\gamma$ is defined by:</p>
 <p>$$
@@ -195,8 +201,8 @@ $$</p>
 <p>where $e = ||u - u_h||<em>E = \left( \int</em>{\mathcal{B}} (\nabla u - \nabla u_h) \cdot (\nabla u - \nabla u_h) , d\mathbf{x} \right)^{1/2}$.</p>
 <p>The solutions obtained using the coarsest and the finest meshes are plotted in Figure 3.</p>
 <p align="center">
-  <img src="figures/ProblemB1_CoarsestMeshes.png" width="48%">
-  <img src="figures/ProblemB1_FinestMeshes.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB1_CoarsestMeshes.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB1_FinestMeshes.png" width="48%">
 </p>
 <p align="center">
   <em>Left: Coarsest Meshes, $h_{\max} = 1/2$. Right: Finest Meshes, $h_{\max} = 1/32$.</em>
@@ -276,12 +282,12 @@ $$</p>
 $$</p>
 <p>The amount of emitted hormone versus time is plotted in Figure 4 with $h_{\max} = 1/5$ and $h_{\max} = 1/20$ respectively.</p>
 <p align="center">
-  <img src="figures/ProblemB3_MassLoss.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB3_MassLoss.png" width="70%">
 </p>
 <p>Figure 5 displays the solutions at the initial time and the final time with $h_{\max} = 1/20$.</p>
 <p align="center">
-  <img src="figures/ProblemB3_InitialSolution.png" width="48%">
-  <img src="figures/ProblemB3_Solution_T_30.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB3_InitialSolution.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB3_Solution_T_30.png" width="48%">
 </p>
 <p align="center">
   <em>Left: Initial solution (T=0). Right: Final solution (T=30).</em>
@@ -318,30 +324,30 @@ $$</p>
 $$</p>
 <p>With $\beta = 0.2, \gamma = 0.5$:</p>
 <p align="center">
-  <img src="figures/ProblemB4_beta_0.2_gamma_0.5_MassLoss.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_beta_0.2_gamma_0.5_MassLoss.png" width="70%">
 </p>
 <p align="center">
-  <img src="figures/ProblemB4_beta_0.2_gamma_0.5_t_0.png" width="48%">
-  <img src="figures/ProblemB4_beta_0.2_gamma_0.5_t_30.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_beta_0.2_gamma_0.5_t_0.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_beta_0.2_gamma_0.5_t_30.png" width="48%">
 </p>
 <p align="center">
   <em>Left: T=0. Right: T=30.</em>
 </p>
 <p>With $\beta = 1, \gamma = 0.2$:</p>
 <p align="center">
-  <img src="figures/ProblemB4_beta_1.0_gamma_0.2_MassLoss.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_beta_1.0_gamma_0.2_MassLoss.png" width="70%">
 </p>
 <p align="center">
-  <img src="figures/ProblemB4_beta_1.0_gamma_0.2_t_0.0.png" width="48%">
-  <img src="figures/ProblemB4_beta_1.0_gamma_0.2_t_30.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_beta_1.0_gamma_0.2_t_0.0.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_beta_1.0_gamma_0.2_t_30.png" width="48%">
 </p>
 <p align="center">
   <em>Left: T=0. Right: T=30.</em>
 </p>
 <p>To study how changes in $\beta$ and $\gamma$ affect the result:</p>
 <p align="center">
-  <img src="figures/ProblemB4_changeInBeta.png" width="48%">
-  <img src="figures/ProblemB4_changeInGamma.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_changeInBeta.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/ProblemB4_changeInGamma.png" width="48%">
 </p>
 <p align="center">
   <em>Left: Change in beta. Right: Change in gamma.</em>
@@ -369,30 +375,30 @@ $$</p>
 $$</p>
 <h4>2D Mesh Solutions</h4>
 <p align="center">
-  <img src="figures/2D_initial_line1.png" width="48%">
-  <img src="figures/2D_initial_line2.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/2D_initial_line1.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/2D_initial_line2.png" width="48%">
 </p>
 <p align="center">
   <em>Solutions for 2D mesh at T=0 (Image on left, plot along diagonal on right).</em>
 </p>
 <p align="center">
-  <img src="figures/2D_final_line1.png" width="48%">
-  <img src="figures/2D_final_line2.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/2D_final_line1.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/2D_final_line2.png" width="48%">
 </p>
 <p align="center">
   <em>Solutions for 2D mesh at T=20 (Image on left, plot along diagonal on right).</em>
 </p>
 <h4>3D Mesh Solutions</h4>
 <p align="center">
-  <img src="figures/3D_initial_line1.png" width="48%">
-  <img src="figures/3D_initial_line2.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/3D_initial_line1.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/3D_initial_line2.png" width="48%">
 </p>
 <p align="center">
   <em>Solutions for 3D mesh at T=0 (Image on left, plot along diagonal on right).</em>
 </p>
 <p align="center">
-  <img src="figures/3D_final_line1.png" width="48%">
-  <img src="figures/3D_final_line2.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/3D_final_line1.png" width="48%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/3D_final_line2.png" width="48%">
 </p>
 <p align="center">
   <em>Solutions for 3D mesh at T=20 (Image on left, plot along diagonal on right).</em>
@@ -401,7 +407,7 @@ $$</p>
 <h3>Problem 2</h3>
 <p>Mass loss for different $\rho$ values:</p>
 <p align="center">
-  <img src="figures/Part3_Task2_mass_loss.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/Part3_Task2_mass_loss.png" width="70%">
 </p>
 <p>Higher initial density results in a steeper gradient and more rapid diffusion.</p>
 <h3>Problem 3</h3>
@@ -412,7 +418,7 @@ $$</p>
 <p>Target mass loss $M_i = [10, 15, 30]$ at $T_i = [5, 7, 30]$.</p>
 <p>Optimized parameters: $\rho \approx 40.90, R \approx 0.50, r \approx 0.30$.</p>
 <p align="center">
-  <img src="figures/Part3_Task2_Massloss.png" width="70%">
+  <img src="https://raw.githubusercontent.com/sylvia-ymlin/Design-Medical-Torus-with-FEM/main/figures/Part3_Task2_Massloss.png" width="70%">
 </p>
 <hr>
 <h2>Concluding Discussion</h2>

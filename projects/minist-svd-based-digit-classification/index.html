@@ -20,6 +20,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.querySelector('.prose'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+  
 </head>
 <body>
 
@@ -105,7 +111,7 @@
 <p>Decomposing the training data ($X \in \mathbb{R}^{784 \times 400}$) via SVD reveals how variance distributes across directions, with faster decay indicating lower intrinsic dimensionality.</p>
 <p>As shown in Figure 1 and the table below, structural complexity varies by class. Digit &quot;1&quot; is the simplest ($k=8$ at 90% variance), owing to its consistent shape. In contrast, digit &quot;5&quot; is the most complex ($k=33$ at 90% variance), reflecting higher within-class variation. Optimal rank typically sits near this 90% variance threshold, capturing dominant structure while ignoring noise (§3).</p>
 <div align="center">
-<img src="figures/singular_value_decay.png" width="400">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/singular_value_decay.png" width="400">
 <p><strong>Figure 1.</strong> Singular value decay per digit class (log scale).</p>
 </div>
 <div align="center">
@@ -172,18 +178,18 @@
 </div>
 <p>The basis vectors $u_j$ (columns of $U$) provide an orthonormal basis for the class subspace. Figure 2 displays the first three components ($u_1, u_2, u_3$) per digit. Without pre-centering, $u_1$ captures the mean digit shape, while subsequent vectors represent dominant within-class variations like stroke slant and thickness.</p>
 <div align="center">
-<img src="figures/basis_components_grid.png" width="600">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/basis_components_grid.png" width="600">
 <p><strong>Figure 2.</strong> First three basis vectors $u_1, u_2, u_3$ per digit class.</p>
 </div>
 <h2>3. Rank Selection</h2>
 <p>Subspace rank $k$ defines the number of basis vectors per class. Figure 3 evaluates testing accuracy on 10,000 images across $k \in [1, 50]$. Accuracy peaks at 95.36% ($k = 22$) before declining, as high-rank directions capture sample-specific noise rather than stable class structure. This result is consistent with Figure 1: the discriminative signal for each digit is concentrated in its low-rank directions.</p>
 <div align="center">
-<img src="figures/accuracy_vs_rank.png" width="400">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/accuracy_vs_rank.png" width="400">
 <p><strong>Figure 3.</strong> Classification accuracy vs. subspace rank $k$.</p>
 </div>
 <p>Figure 4 compares original test images with their rank-22 reconstructions ($\hat{d} = U_{22} U_{22}^T d$). The reproduction of key visual features confirms that $k = 22$ captures the dominant class structure by finding the best approximation of $d$ within the 22-dimensional subspace.</p>
 <div align="center">
-<img src="figures/reconstruction_comparison.png" width="600">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/reconstruction_comparison.png" width="600">
 <p><strong>Figure 4.</strong> Original test images (top) and rank-22 reconstructions (bottom) for one example per digit class.</p>
 </div>
 <h2>4. Confusion Matrix</h2>
@@ -194,7 +200,7 @@
 <li>7↔9: ~2.3–2.4% in both directions</li>
 </ul>
 <div align="center">
-<img src="figures/confusion_matrix.png" width="400">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/confusion_matrix.png" width="400">
 <p><strong>Figure 5.</strong> Normalized confusion matrix at $k = 22$.</p>
 </div>
 <p>Errors are structured rather than random, with specific digit pairs consistently confused. For instance, the 8→1 confusion occurs despite visual dissimilarity, suggesting a non-pixel-level geometric cause (§5).</p>
@@ -204,24 +210,24 @@
 <p>where $\sigma_\ell$ are singular values of the cross-Gram matrix. Ordered $0 \leq \theta_1 \leq \ldots \leq 90°$, a small $\theta_1$ indicates shared directions, leading to higher confusion rates.</p>
 <p>Figure 6 shows mean principal angles between digit pairs. Pairs with small angles - (8, 1), (5, 3), (7, 9) - match the high confusion rates (8→1, 5→3, and 7↔9) shown in Figure 5.</p>
 <div align="center">
-<img src="figures/mean_principal_angles_heatmap.png" width="400">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/mean_principal_angles_heatmap.png" width="400">
 <p><strong>Figure 6.</strong> Mean principal angle (degrees) between all pairs of digit subspaces at $k = 22$.</p>
 </div>
 <p>The correlation ($\rho = -0.67$) shown in Figure 7 indicates that classification errors are governed by subspace proximity. This suggests that the classifier's failure modes are predictable from the geometric alignment of digit classes in the training data.</p>
 <div align="center">
-<img src="figures/angle_vs_confusion_mean.png" width="400">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/angle_vs_confusion_mean.png" width="400">
 <p><strong>Figure 7.</strong> Mean principal angle vs. confusion rate for all 45 digit pairs.</p>
 </div>
 <h2>6. Centered SVD (PCA): Decoupling Mean from Variation</h2>
 <p>In the baseline classifier (§1), I computed the SVD directly on the raw image matrix. The resulting subspace $U_i$ captures the dominant directions of the data, which inherently includes the class mean. To isolate the unique structural variations of each digit, I implemented Centered SVD, which is equivalent to Principal Component Analysis (PCA). By subtracting the class mean $\mu_i$ before performing SVD, the resulting subspace $U_i^{PCA}$ represents only the within-class variation, effectively decoupling the static &quot;average&quot; shape from the dynamic variations. The two methods are compared at their respective optimal ranks.</p>
 <p>Figure 8 shows that PCA reaches 95.67% accuracy at $k = 23$, an improvement of 0.31 percentage points over the uncentered SVD baseline.</p>
 <div align="center">
-<img src="figures/pca_accuracy_vs_rank.png" width="400">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/pca_accuracy_vs_rank.png" width="400">
 <p><strong>Figure 8.</strong> Accuracy vs. rank $k$ for uncentered SVD and centered SVD (PCA).</p>
 </div>
 <p>Figure 9 shows the confusion matrices side by side: the 8→1 confusion rate drops from 2.62% to 1.93% after centering, consistent with the hypothesis that part of the confusion is driven by shared mean image shape.</p>
 <div align="center">
-<img src="figures/pca_confusion_comparison.png" width="700">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/MINIST-SVD-Based-Digit-Classification/main/figures/pca_confusion_comparison.png" width="700">
 <p><strong>Figure 9.</strong> Confusion matrices for uncentered SVD (left) and centered SVD / PCA (right) at their respective optimal ranks.</p>
 </div>
 <p>Furthermore, centering increases the minimum principal angle for the 8–1 pair from 6.21° to 13.78°, effectively pulling the two subspaces apart by removing the shared mean component. This confirms that much of the initial confusion was due to the shared static baseline of the digit shapes rather than their unique structural variations. While 13.78° remains the smallest minimum angle among all 45 digit pairs after centering, the reduction in overlap qualitatively demonstrates that PCA provides more robust separation of digit classes by isolating unique structural features.</p>

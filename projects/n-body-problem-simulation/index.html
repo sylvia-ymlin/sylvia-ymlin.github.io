@@ -20,6 +20,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.querySelector('.prose'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+  
 </head>
 <body>
 
@@ -117,9 +123,9 @@ Final benchmarks were run on UPPMAX (<code>pelle</code>, 1 node, 36 CPUs). Earli
 <li><strong>Weak scaling</strong>: x-axis is thread count $P$; y-axis is efficiency. Workload size increases with threads ($N=100k\times P$), and the plotted adjusted efficiency accounts for $O(N\log N)$ work growth.</li>
 <li><strong>Observed trend</strong>: Strong scaling is clearly positive up to 16 threads, while weak-scaling efficiency still decays as problem size and thread count grow together.</li>
 </ul>
-<p><img src="figures/strong_scaling.png" alt="Strong Scaling">
+<p><img src="https://raw.githubusercontent.com/sylvia-ymlin/N-Body-Problem-Simulation/main/figures/strong_scaling.png" alt="Strong Scaling">
 <em>Strong-scaling trend at $N=100k$ on UPPMAX: speedup reaches about <code>4.0x</code> at 16 threads, with the remaining gap to ideal scaling explained by serial tree construction and memory-bound traversal.</em></p>
-<p><img src="figures/weak_scaling.png" alt="Weak Scaling">
+<p><img src="https://raw.githubusercontent.com/sylvia-ymlin/N-Body-Problem-Simulation/main/figures/weak_scaling.png" alt="Weak Scaling">
 <em>Weak-scaling trend (with $O(N\log N)$ adjustment): runtime grows from <code>0.36s</code> to <code>1.36s</code> as workload scales from <code>100k</code> to <code>1.6M</code>, indicating useful but non-ideal scaling.</em></p>
 <h2>Optimization Stages</h2>
 <p>Each stage addresses one observed bottleneck.</p>
@@ -130,7 +136,7 @@ Final benchmarks were run on UPPMAX (<code>pelle</code>, 1 node, 36 CPUs). Earli
 <li><strong>Solution</strong>: Switch to <strong>Barnes-Hut</strong> ($O(N \log N)$) using QuadTree approximations.</li>
 <li><strong>Result</strong>: on UPPMAX, $N=5,000$ drops from <code>0.19s</code> to <code>0.02s</code>, and $N=10,000$ drops from <code>0.76s</code> to <code>0.06s</code>. Accuracy remains consistent at $\theta=0.5$.</li>
 </ul>
-<p><img src="figures/barnes_hut_logic.png" alt="Barnes-Hut Logic Diagram">
+<p><img src="https://raw.githubusercontent.com/sylvia-ymlin/N-Body-Problem-Simulation/main/figures/barnes_hut_logic.png" alt="Barnes-Hut Logic Diagram">
 <em>Barnes-Hut logic: quadtree partitioning, center-of-mass aggregation, and far-field approximation using $s/r &lt; \theta$.</em></p>
 <h3>Stage II: Linear Arena Allocator</h3>
 <p><strong>Bottleneck</strong>: Per-node <code>malloc</code> calls scatter tree nodes across the heap, causing cache misses on pointer dereference.</p>

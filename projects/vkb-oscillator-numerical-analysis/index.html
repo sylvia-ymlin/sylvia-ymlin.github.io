@@ -20,6 +20,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.querySelector('.prose'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false})"></script>
+  
 </head>
 <body>
 
@@ -89,33 +95,33 @@
 <h3>Task A: Deterministic simulation and solver comparison</h3>
 <p>The 9D ODE is integrated at $s_R = 0.2$ for 400 h using BDF with analytical Jacobian. The trajectory reproduces the sustained ~24 h oscillations reported in Vilar et al. (Figure 1).</p>
 <div align="center">
-<img src="figures/assignment_a_ode.png" width="500" alt="Deterministic ODE">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/assignment_a_ode.png" width="500" alt="Deterministic ODE">
 <p><strong>Figure 1.</strong> ODE trajectory (400 h) for activator A and repressor R at $s_R = 0.2$.</p>
 </div>
 <p>Three solvers are benchmarked over a 48 h simulation with internal step sizes recorded (Figure 2): explicit RK45 (designed for non-stiff systems) and implicit BDF and Radau (designed for stiff systems). During steep dynamical phases, RK45 requires step sizes as small as $10^{-3}$ h, while BDF and Radau take steps up to $1,\mathrm{h}$ during slow phases — consistent with the stiffness of the system.</p>
 <div align="center">
-<img src="figures/solver_step_sizes.png" width="500" alt="Solver step sizes">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/solver_step_sizes.png" width="500" alt="Solver step sizes">
 <p><strong>Figure 2.</strong> Internal step sizes $\Delta t$ for RK45, BDF, and Radau over 48 h.</p>
 </div>
 <p>These benchmarks also illustrate the performance trade-offs between the chosen solvers (see Figure 3). BDF provides faster execution (~0.12 s) with errors of $10^{-4}$–$10^{-6}$, while Radau achieves higher precision ($10^{-8}$–$10^{-14}$) at the cost of nearly double the runtime (~0.21 s). This difference justifies using BDF for extended simulations and Radau for tasks requiring high-precision eigenvalue computations.</p>
 <div align="center">
-<img src="figures/solver_errors.png" width="500" alt="Solver errors">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/solver_errors.png" width="500" alt="Solver errors">
 <p><strong>Figure 3.</strong> Trajectory error for BDF and Radau vs. high-precision RK45 reference ($\texttt{rtol}=10^{-12}$, $\texttt{atol}=10^{-14}$).</p>
 </div>
 <h3>Task B: Stochastic simulation at $s_R = 0.2$</h3>
 <p>The SSA is run using GillesPy2 with the same 16 reactions. Three independent 400 h trajectories (Figure 4) oscillate in phase with the ODE limit cycle but show stochastic phase drift and amplitude variation.</p>
 <div align="center">
-<img src="figures/assignment_b_ssa.png" width="500" alt="Stochastic SSA">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/assignment_b_ssa.png" width="500" alt="Stochastic SSA">
 <p><strong>Figure 4.</strong> Three SSA trajectories (400 h), A and R at $s_R = 0.2$.</p>
 </div>
 <h3>Task C: Noise-induced oscillations at $s_R = 0.03$</h3>
 <p>At $s_R = 0.03$, the deterministic ODE converges to a stable equilibrium while SSA trajectories remain oscillatory (Figure 5). All Jacobian eigenvalues at the equilibrium have negative real parts (Figure 6), confirming the fixed point's linear stability — the SSA oscillations are driven purely by intrinsic stochastic fluctuations.</p>
 <div align="center">
-<img src="figures/assignment_c_noise.png" width="500" alt="Noise-Induced Oscillations">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/assignment_c_noise.png" width="500" alt="Noise-Induced Oscillations">
 <p><strong>Figure 5.</strong> ODE vs SSA at $s_R = 0.03$. The ODE decays to steady state; SSA continues to oscillate.</p>
 </div>
 <div align="center">
-<img src="figures/stiffness_comparison_part_c.png" width="500" alt="Jacobian eigenvalue spectra">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/stiffness_comparison_part_c.png" width="500" alt="Jacobian eigenvalue spectra">
 <p><strong>Figure 6.</strong> Jacobian eigenvalue spectra along trajectories at $s_R = 0.03$ and $s_R = 0.2$.</p>
 </div>
 <h3>Task D: When to use ODE vs SSA</h3>
@@ -127,19 +133,19 @@
 <p><strong>Step 1 — Trajectory comparison</strong></p>
 <p>Both models are simulated at $s_R = 0.2$, $0.03$, and $0.088$ from their respective default initial conditions — the biological IC for the full model and the zero state for the reduced model (Figure 7). At $s_R = 0.088$, their long-term behaviour diverges: the reduced model decays to a stable equilibrium, while the full model sustains persistent oscillations. This divergence motivates a direct test of attractor coexistence in the full model.</p>
 <div align="center">
-<img src="figures/reduction_comparison.png" width="500" alt="Reduction comparison">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/reduction_comparison.png" width="500" alt="Reduction comparison">
 <p><strong>Figure 7.</strong> Full vs. reduced model trajectories (activator $A$, top; repressor $R$, bottom) at $s_R = 0.2$, $0.03$, and $0.088$ (left to right). At $s_R = 0.088$ (rightmost column) the two models diverge qualitatively.</p>
 </div>
 <p><strong>Step 2 — Bistability in the full model</strong></p>
 <p>To test whether both an equilibrium and a limit cycle can coexist in the full model at $s_R = 0.088$, 72 initial conditions are integrated: one biological IC from the reference, 64 perturbations of the equilibrium point at four amplitude scales (16 samples per scale, RNG seed 42), and 7 axis-aligned perturbations — all within biologically plausible concentration ranges. Of these, 39 trajectories converge to a limit cycle and 33 to the equilibrium, confirming the coexistence of two stable attractors. The reduced model shows no such coexistence — all initial conditions tested converge to the equilibrium (Figure 8).</p>
 <div align="center">
-<img src="figures/basin_comparison_sR_0.088.png" width="500" alt="Basin comparison">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/basin_comparison_sR_0.088.png" width="500" alt="Basin comparison">
 <p><strong>Figure 8.</strong> Phase-space comparison at $s_R = 0.088$. Left: all reduced-model trajectories converge to $(R_0, C_0)$. Right: full-model trajectories converge to either the equilibrium or a limit cycle depending on the initial condition.</p>
 </div>
 <p><strong>Step 3 — Basin of attraction</strong></p>
 <p>To characterise the basin structure globally, a 50×50 grid of initial conditions is scanned on a large $(R,C)$ slice. Each point is lifted to 9D via QSSA and integrated to convergence — 2500 independent ODE solves. The scan confirms that the two basins occupy distinct, well-separated regions of phase space (Figure 9). Nullclines overlaid are from the reduced (2D QSSA) model.</p>
 <div align="center">
-<img src="figures/basin_grid_sR_0.088.png" width="500" alt="Basin grid scan">
+<img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/basin_grid_sR_0.088.png" width="500" alt="Basin grid scan">
 <p><strong>Figure 9.</strong> Full-model basin of attraction scan on the $(R,C)$ plane at $s_R = 0.088$. Hatching distinguishes convergence to the equilibrium vs. the limit cycle.</p>
 </div>
 <hr>
