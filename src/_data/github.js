@@ -12,6 +12,21 @@ module.exports = async function () {
     return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   }
 
+  function fixImagePaths(markdown, repoName) {
+    const base = `https://raw.githubusercontent.com/${username}/${repoName}/main`;
+    // Fix HTML <img src="relative/...">
+    markdown = markdown.replace(
+      /<img([^>]+?)src=["'](?!https?:\/\/)([^"']+)["']/gi,
+      (_, before, path) => `<img${before}src="${base}/${path.replace(/^\.\//, "")}"`
+    );
+    // Fix markdown ![alt](relative/...)
+    markdown = markdown.replace(
+      /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/g,
+      (_, alt, path) => `![${alt}](${base}/${path.replace(/^\.\//, "")})`
+    );
+    return markdown;
+  }
+
   function extractFirstImage(markdown, repoName) {
     // Find all markdown images and pick the first non-badge one
     const badgeHosts = ["shields.io", "badge.fury.io", "travis-ci", "circleci", "codecov.io", "img.shields"];
@@ -61,7 +76,8 @@ module.exports = async function () {
           );
           if (readmeRes.ok) {
             const data = await readmeRes.json();
-            readme = Buffer.from(data.content, "base64").toString("utf-8");
+            const raw = Buffer.from(data.content, "base64").toString("utf-8");
+            readme = fixImagePaths(raw, r.name);
             coverImage = extractFirstImage(readme, r.name);
           }
         } catch {}
