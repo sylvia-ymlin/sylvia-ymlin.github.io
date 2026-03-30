@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linrae&#39;s World</title>
+  <meta name="description" content="An explorer who codes, writes, and wanders." />
+  <meta name="author" content="Linrae" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Linrae&#39;s World" />
+  <meta property="og:description" content="An explorer who codes, writes, and wanders." />
+  <meta property="og:image" content="/assets/img/avatar.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/avatar.png" type="image/png" />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">
+    <a href="/">
+      <img src="/assets/img/avatar.png" alt="Linrae" class="nav-avatar" />
+      <span class="nav-site-name">Linrae</span>
+    </a>
+  </div>
+
+  <ul class="nav-links">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/posts/">Posts</a></li>
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/life/">Life</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+
+  <div class="nav-right">
+    <a href="https://github.com/sylvia-ymlin" target="_blank" rel="noopener" class="nav-icon" title="GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- Main content -->
+<main>
+  
+<div class="container">
+  <a href="/projects/" class="back-link">← Projects</a>
+
+  <div class="post-header">
+    <p class="post-category">Project</p>
+    <h1 class="post-title">Rossmann-Store-Sales</h1>
+    <div class="post-meta-row">
+      
+      <span class="post-meta-item">Python</span>
+      
+      
+      <a href="https://github.com/sylvia-ymlin/Rossmann-Store-Sales" target="_blank" rel="noopener" class="post-meta-item" style="color: var(--accent);">View on GitHub →</a>
+    </div>
+    
+  </div>
+
+  
+
+  <div class="prose">
+    <hr>
+<h2>title: Rossmann Store Sales
+emoji: 📊
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+app_port: 7860</h2>
+<h1>Rossmann Store Sales Intelligence</h1>
+<blockquote>
+<p><strong>Architecture Status</strong>: Refactored to V2 Standard (FastAPI + Config-Driven + Docker)</p>
+</blockquote>
+<h2>The Problem</h2>
+<p>Retailers struggle with manual sales forecasting, leading to stockouts or excessive inventory across 1,115 stores. Accurate prediction requires handling complex seasonality, moving holidays (Easter), and competition effects.</p>
+<h2>The Solution</h2>
+<p>An end-to-end <strong>MLOps Prediction System</strong> that automates high-precision forecasting.</p>
+<ul>
+<li><strong>Algorithm</strong>: XGBoost with custom Feature Engineering (Fourier Seasonality, Drift Detection).</li>
+<li><strong>Architecture</strong>: Config-driven FastAPI backend with a custom &quot;Hand-Drawn&quot; HTML frontend.</li>
+<li><strong>Deployment</strong>: containerized (Docker) for Hugging Face Spaces.</li>
+</ul>
+<h2>Quick Start</h2>
+<h3>Option 1: Docker (Recommended)</h3>
+<pre><code class="language-bash"># Build the image
+docker build -t rossmann-sales .
+
+# Run the container (Port 7860)
+docker run -p 7860:7860 rossmann-sales
+</code></pre>
+<h3>Option 2: Local Python</h3>
+<pre><code class="language-bash"># Install dependencies
+pip install -r requirements.txt
+
+# Run the server
+uvicorn src.app:app --reload --port 7860
+</code></pre>
+<p>Visit <code>http://localhost:7860</code> to access the interface.</p>
+<h2>Configuration</h2>
+<p>The project is fully driven by <code>config.yaml</code>. You can adjust model parameters and pipeline steps without changing code.</p>
+<pre><code class="language-yaml"># config.yaml
+feature_engineering:
+  - strategy: &quot;fourier_seasonality&quot;
+    period: 365.25
+    order: 5
+model_params:
+  xgboost:
+    n_estimators: 1000
+    learning_rate: 0.05
+</code></pre>
+<h2>Key Engineering Features</h2>
+<ol>
+<li><strong>Strict Configuration</strong>: All hyperparameters are centralized in <code>config.yaml</code> and validated via Pydantic (<code>src/config.py</code>).</li>
+<li><strong>Modular Pipeline</strong>: Feature engineering steps (Seasonality, Easter effects) are dynamically loaded.</li>
+<li><strong>Production Ready</strong>: Non-root Docker container compatible with modern cloud platforms (HF Spaces).</li>
+</ol>
+<h2>Performance</h2>
+<ul>
+<li><strong>Accuracy</strong>: ~11.7% RMSPE</li>
+<li><strong>Latency</strong>: &lt;50ms per inference</li>
+</ul>
+<h1>Heartbeat for deployment trigger</h1>
+
+  </div>
+
+  <div style="height: 4rem;"></div>
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p class="footer-greeting">Spring greetings</p>
+    <p class="footer-sub">Welcome to write</p>
+    <div class="footer-links">
+      
+      <a href="/">Home</a>
+      
+      <a href="/posts/">Posts</a>
+      
+      <a href="/projects/">Projects</a>
+      
+      <a href="/life/">Life</a>
+      
+      <a href="/about/">About</a>
+      
+    </div>
+    <p class="footer-copy">© 2026 Linrae · Built with Eleventy · Hosted on GitHub Pages</p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

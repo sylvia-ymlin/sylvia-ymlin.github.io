@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linrae&#39;s World</title>
+  <meta name="description" content="An explorer who codes, writes, and wanders." />
+  <meta name="author" content="Linrae" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Linrae&#39;s World" />
+  <meta property="og:description" content="An explorer who codes, writes, and wanders." />
+  <meta property="og:image" content="/assets/img/avatar.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/avatar.png" type="image/png" />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">
+    <a href="/">
+      <img src="/assets/img/avatar.png" alt="Linrae" class="nav-avatar" />
+      <span class="nav-site-name">Linrae</span>
+    </a>
+  </div>
+
+  <ul class="nav-links">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/posts/">Posts</a></li>
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/life/">Life</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+
+  <div class="nav-right">
+    <a href="https://github.com/sylvia-ymlin" target="_blank" rel="noopener" class="nav-icon" title="GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- Main content -->
+<main>
+  
+<div class="container">
+  <a href="/projects/" class="back-link">← Projects</a>
+
+  <div class="post-header">
+    <p class="post-category">Project</p>
+    <h1 class="post-title">book-rec-with-LLMs</h1>
+    <div class="post-meta-row">
+      
+      <span class="post-meta-item">Jupyter Notebook</span>
+      
+      
+      <a href="https://github.com/sylvia-ymlin/book-rec-with-LLMs" target="_blank" rel="noopener" class="post-meta-item" style="color: var(--accent);">View on GitHub →</a>
+    </div>
+    
+  </div>
+
+  
+
+  <div class="prose">
+    <hr>
+<h2>license: mit
+title: Semantic-Based Book Recommendation Framework
+sdk: docker
+app_port: 8000</h2>
+<h1>Intelligent Book Recommendation System</h1>
+<p>For more details on the architecture, experiments, and design decisions, see the technical report: <a href="docs/architecture/TECHNICAL_REPORT.md">Technical Report</a>.</p>
+<h2>Problem</h2>
+<p>Readers often can't clearly say what they want. Can one system both understand their rough descriptions and give personalized recommendations based on their reading history?</p>
+<h2>Method</h2>
+<p>Two parallel threads: <strong>RAG</strong> (Agentic Router → Hybrid Search → Reranking) for understanding messy queries; <strong>RecSys</strong> (7-channel recall → LGBMRanker → Stacking) for personalized recommendations from reading history.</p>
+<h3>Why This Design</h3>
+<ul>
+<li><strong>Hybrid retrieval over pure vectors</strong>: BM25 helps with exact entities (ISBN, author names), while dense embeddings capture semantic similarity; the router chooses the right mix per query.</li>
+<li><strong>Multi-channel recall</strong>: Using seven recall channels (ItemCF, Swing, Item2Vec, SASRec, popularity, etc.) increases coverage and diversity compared to a single heuristic.</li>
+<li><strong>Learning-to-rank + stacking</strong>: A LambdaRank-style LGBMRanker consumes features from all channels, and stacking lets a lightweight meta-model learn which signals to trust in different regimes.</li>
+</ul>
+<h2>Key Experiments</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Experiment</th>
+<th style="text-align:left">Before</th>
+<th style="text-align:left">After</th>
+<th style="text-align:left">Conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>RAG: Exact match</strong></td>
+<td style="text-align:left">Pure vector search, ISBN → 0% recall</td>
+<td style="text-align:left">Hybrid (BM25 + Dense) + Router → 100%</td>
+<td style="text-align:left">Vector-only fails on exact entities; BM25 + routing fixes it</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>RAG: Keyword intent</strong></td>
+<td style="text-align:left">&quot;Harry Potter&quot; → Philosophy book</td>
+<td style="text-align:left">Reranked → Sorcerer's Stone</td>
+<td style="text-align:left">Cross-encoder corrects semantic drift</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>RecSys: Personalization</strong></td>
+<td style="text-align:left">Baseline 0.138 HR@10</td>
+<td style="text-align:left">Item2Vec + LGBMRanker + Stacking →<strong>0.4545</strong> HR@10</td>
+<td style="text-align:left">7-channel recall + LambdaRank + ensemble beats single model</td>
+</tr>
+</tbody>
+</table>
+<p><em>Evaluation: Leave-Last-Out, n=2000, title-relaxed. HR@10 = 0.4545, MRR@5 = 0.2893.</em></p>
+<h3>Takeaways</h3>
+<ul>
+<li><strong>Hybrid search &gt; pure vector search</strong> for exact identifiers and queries full of specific names or IDs.</li>
+<li><strong>Multi-channel recall + LambdaRank</strong> clearly improves HR/MRR over single-model baselines.</li>
+<li><strong>Reranking</strong> is critical to fix when the model misunderstands what the user actually wants (e.g., turning a vague “Harry Potter” query into the right book).</li>
+</ul>
+<h2>Feature Overview</h2>
+<h3>Core Features</h3>
+<ul>
+<li>[X] Semantic search recommendations (RAG: hybrid retrieval + reranking)</li>
+<li>[X] Personalized recommendations (7-channel recall + LGBMRanker)</li>
+<li>[X] User bookshelf and favorites management</li>
+</ul>
+<h3>Extended Features</h3>
+<ul>
+<li>[X] Chat with Book (LLM chat grounded in book content)</li>
+<li>[X] Personalized marketing copy generation</li>
+<li>[X] Content guardrails for safer outputs</li>
+</ul>
+<h3>Experimental Features</h3>
+<ul>
+<li>[X] A/B testing framework for recommendation and diversity experiments</li>
+<li>[X] SFT-style data generation pipelines</li>
+<li>[X] LLM-as-a-Judge for evaluating generated content</li>
+</ul>
+<h3>Future Ideas</h3>
+<ul>
+<li>[ ] Multi-language support</li>
+<li>[ ] Mobile app experience</li>
+<li>[ ] Social sharing and collaborative discovery</li>
+</ul>
+<h2>Architecture</h2>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Entry[&quot;User Entry&quot;]
+        Q[Has Query?]
+    end
+
+    Q --&gt;|Yes| RAG[RAG Path]
+    Q --&gt;|No| Rec[RecSys Path]
+
+    subgraph RAGPath[&quot;RAG Path&quot;]
+        R1[Router]
+        R2[Hybrid Search]
+        R3[Rerank]
+        R1 --&gt; R2 --&gt; R3
+    end
+
+    subgraph RecPath[&quot;RecSys Path&quot;]
+        R4[7-Channel Recall]
+        R5[LGBMRanker]
+        R6[Diversity Rerank]
+        R4 --&gt; R5 --&gt; R6
+    end
+
+    RAG --&gt; RAGPath
+    Rec --&gt; RecPath
+
+    RAGPath --&gt; Merge[Top-K Results]
+    RecPath --&gt; Merge
+</code></pre>
+<p><strong>Highlight</strong>: End-to-end system covering RAG routing, multi-channel recall, learning-to-rank ranking, FastAPI backend, React UI, evaluation datasets, and a full technical report.</p>
+<h2>Quick Start</h2>
+<pre><code class="language-bash">git clone https://github.com/sylvia-ymlin/book-rec-with-LLMs.git
+cd book-rec-with-LLMs
+conda env create -f environment.yml &amp;&amp; conda activate book-rec
+
+# First run (or use make data-pipeline for full build)
+python data/scripts/init_db.py     # Chroma vector DB
+python scripts/init_sqlite_db.py    # SQLite metadata (local build)
+
+make run                       # API http://localhost:6006
+cd web &amp;&amp; npm install &amp;&amp; npm run dev   # UI http://localhost:5173
+</code></pre>
+<p><strong>LLM</strong>: Choose provider in UI Settings — Ollama (local, default), OpenAI, or Groq. API key required for OpenAI/Groq; stored locally and sent per request.</p>
+<h2>License</h2>
+<p>MIT</p>
+
+  </div>
+
+  <div style="height: 4rem;"></div>
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p class="footer-greeting">Spring greetings</p>
+    <p class="footer-sub">Welcome to write</p>
+    <div class="footer-links">
+      
+      <a href="/">Home</a>
+      
+      <a href="/posts/">Posts</a>
+      
+      <a href="/projects/">Projects</a>
+      
+      <a href="/life/">Life</a>
+      
+      <a href="/about/">About</a>
+      
+    </div>
+    <p class="footer-copy">© 2026 Linrae · Built with Eleventy · Hosted on GitHub Pages</p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

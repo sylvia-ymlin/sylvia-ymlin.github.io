@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linrae&#39;s World</title>
+  <meta name="description" content="An explorer who codes, writes, and wanders." />
+  <meta name="author" content="Linrae" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Linrae&#39;s World" />
+  <meta property="og:description" content="An explorer who codes, writes, and wanders." />
+  <meta property="og:image" content="/assets/img/avatar.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/avatar.png" type="image/png" />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">
+    <a href="/">
+      <img src="/assets/img/avatar.png" alt="Linrae" class="nav-avatar" />
+      <span class="nav-site-name">Linrae</span>
+    </a>
+  </div>
+
+  <ul class="nav-links">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/posts/">Posts</a></li>
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/life/">Life</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+
+  <div class="nav-right">
+    <a href="https://github.com/sylvia-ymlin" target="_blank" rel="noopener" class="nav-icon" title="GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- Main content -->
+<main>
+  
+<div class="container">
+  <a href="/projects/" class="back-link">← Projects</a>
+
+  <div class="post-header">
+    <p class="post-category">Project</p>
+    <h1 class="post-title">N-Body-Problem-Simulation</h1>
+    <div class="post-meta-row">
+      
+      <span class="post-meta-item">C</span>
+      
+      
+      <a href="https://github.com/sylvia-ymlin/N-Body-Problem-Simulation" target="_blank" rel="noopener" class="post-meta-item" style="color: var(--accent);">View on GitHub →</a>
+    </div>
+    
+  </div>
+
+  
+  <div class="hero-banner" style="margin-bottom: 2rem;">
+    <img src="https://raw.githubusercontent.com/sylvia-ymlin/N-Body-Problem-Simulation/main/figures/strong_scaling.png" alt="N-Body-Problem-Simulation" class="hero-banner-img">
+  </div>
+  
+
+  <div class="prose">
+    <h1>N-Body Simulation Engine: Performance Optimization</h1>
+<p><img src="https://img.shields.io/badge/Language-C-00599C" alt="C">
+<img src="https://img.shields.io/badge/Parallelism-OpenMP-blue" alt="OpenMP">
+<img src="https://img.shields.io/badge/Scale-10%5E6_Particles-green" alt="Scale"></p>
+<p>This project optimizes an N-Body engine from a brute-force $O(N^2)$ baseline to a Barnes-Hut pipeline with arena allocation, Morton ordering, and OpenMP parallelization.
+Final benchmarks were run on UPPMAX (<code>pelle</code>, 1 node, 36 CPUs). Earlier cloud measurements were useful for iteration, but the UPPMAX results are the reference data in this repository.</p>
+<h2>Canonical Workflow</h2>
+<p>If you want to reproduce the final reported results, use this path:</p>
+<ol>
+<li>Submit the UPPMAX job with <code>BENCHMARK_MODE=all</code>.</li>
+<li>Treat these two files as the canonical outputs:
+<ul>
+<li><code>data/metrics/uppmax_full_results.json</code></li>
+<li><code>data/metrics/uppmax_ablation_results.json</code></li>
+</ul>
+</li>
+<li>Re-generate the scaling plots from <code>data/metrics/uppmax_full_results.json</code> with:</li>
+</ol>
+<pre><code class="language-bash">python3 scripts/plot_scaling.py
+</code></pre>
+<p>Historical local and cloud measurements were useful during development, but they are not the reference results for this repository.</p>
+<h2>Key Results</h2>
+<ul>
+<li><strong>Algorithmic speedup</strong>: on UPPMAX, v1 to v2 reduces runtime from <code>0.19s</code> to <code>0.02s</code> at $N=5,000$ and from <code>0.76s</code> to <code>0.06s</code> at $N=10,000$.</li>
+<li><strong>Memory/layout optimizations</strong>: at $N=50,000$, v3 to v4 improves runtime from <code>0.36s</code> to <code>0.21s</code> (<code>1.71x</code>).</li>
+<li><strong>Parallel stage (v5)</strong>: at $N=50,000$, v5 improves from <code>0.16s</code> at 1 thread to <code>0.04s</code> at 16 threads; at fixed $N=100k$, strong scaling reaches <code>4.0x</code> speedup at 16 threads.</li>
+</ul>
+<h3>Scaling Observation</h3>
+<p>Multi-thread scaling is positive on UPPMAX, but still limited by the serial tree build and memory-access-heavy traversal.</p>
+<p>In these measurements, algorithmic and locality improvements still account for a large share of the total gain, and the parallel stage provides an additional but sub-linear speedup.</p>
+<p>How to read the scaling plots:</p>
+<ul>
+<li><strong>Strong scaling</strong>: x-axis is thread count $P$; y-axis is speedup $T_1/T_P$ at fixed $N=100k$. The gap from the ideal line widens at higher $P$.</li>
+<li><strong>Weak scaling</strong>: x-axis is thread count $P$; y-axis is efficiency. Workload size increases with threads ($N=100k\times P$), and the plotted adjusted efficiency accounts for $O(N\log N)$ work growth.</li>
+<li><strong>Observed trend</strong>: Strong scaling is clearly positive up to 16 threads, while weak-scaling efficiency still decays as problem size and thread count grow together.</li>
+</ul>
+<p><img src="figures/strong_scaling.png" alt="Strong Scaling">
+<em>Strong-scaling trend at $N=100k$ on UPPMAX: speedup reaches about <code>4.0x</code> at 16 threads, with the remaining gap to ideal scaling explained by serial tree construction and memory-bound traversal.</em></p>
+<p><img src="figures/weak_scaling.png" alt="Weak Scaling">
+<em>Weak-scaling trend (with $O(N\log N)$ adjustment): runtime grows from <code>0.36s</code> to <code>1.36s</code> as workload scales from <code>100k</code> to <code>1.6M</code>, indicating useful but non-ideal scaling.</em></p>
+<h2>Optimization Stages</h2>
+<p>Each stage addresses one observed bottleneck.</p>
+<p>Archived Stage V (K-Means clustering) is documented in Ablation Notes and is disabled by default (<code>k=0</code>).</p>
+<h3>Stage I: Barnes-Hut Algorithm</h3>
+<p><strong>Bottleneck</strong>: $O(N^2)$ complexity makes even moderate problem sizes costly.</p>
+<ul>
+<li><strong>Solution</strong>: Switch to <strong>Barnes-Hut</strong> ($O(N \log N)$) using QuadTree approximations.</li>
+<li><strong>Result</strong>: on UPPMAX, $N=5,000$ drops from <code>0.19s</code> to <code>0.02s</code>, and $N=10,000$ drops from <code>0.76s</code> to <code>0.06s</code>. Accuracy remains consistent at $\theta=0.5$.</li>
+</ul>
+<p><img src="figures/barnes_hut_logic.png" alt="Barnes-Hut Logic Diagram">
+<em>Barnes-Hut logic: quadtree partitioning, center-of-mass aggregation, and far-field approximation using $s/r &lt; \theta$.</em></p>
+<h3>Stage II: Linear Arena Allocator</h3>
+<p><strong>Bottleneck</strong>: Per-node <code>malloc</code> calls scatter tree nodes across the heap, causing cache misses on pointer dereference.</p>
+<ul>
+<li><strong>Solution</strong>: Pre-allocate a contiguous buffer; serve nodes from it with pointer-bump (Arena Allocator).</li>
+<li><strong>Result</strong>: this stage prepares the tree for locality-sensitive improvements and remains part of the final pipeline.</li>
+</ul>
+<h3>Stage III: Morton Sorting (Z-Order)</h3>
+<p><strong>Bottleneck</strong>: Even with arena allocation, inserting particles in random order hurts spatial locality during tree construction and leaves nearby particles scattered in the backing arrays.</p>
+<ul>
+<li><strong>Solution</strong>: Reorder particles by Morton code (Z-order curve) before tree insertion, so nearby particles are visited and inserted in a more locality-friendly order.</li>
+<li><strong>Result</strong>: on UPPMAX at $N=50,000$, runtime improves from <code>0.36s</code> to <code>0.21s</code> over the arena baseline.</li>
+</ul>
+<h3>Stage IV: Parallel with OpenMP</h3>
+<p><strong>Bottleneck</strong>: Parallel efficiency is limited by uneven per-particle traversal cost and a still-mostly-serial tree build.</p>
+<ul>
+<li><strong>Solution</strong>: Parallelize the force-compute loop with OpenMP and use <code>schedule(dynamic, 128)</code> to reduce idle time from dense vs. sparse workload imbalance.</li>
+<li><strong>Result</strong>: on UPPMAX at $N=50,000$, runtime drops from <code>0.16s</code> at 1 thread to <code>0.04s</code> at 16 threads. At fixed $N=100k$, end-to-end strong scaling reaches <code>4.0x</code> at 16 threads.</li>
+<li><strong>Boundary</strong>: End-to-end scaling remains capped because tree construction is still mostly serial, and traversal is branch-heavy/pointer-heavy with limited auto-vectorization in the hot path.</li>
+<li><strong>Environment note</strong>: Results were measured on UPPMAX (<code>pelle</code>) and are more stable than the earlier shared-cloud measurements.</li>
+</ul>
+<p>Further parallel optimization opportunities:</p>
+<ul>
+<li>Parallel tree construction (task-based or level-based build) to reduce the serial fraction.</li>
+<li>Scheduling sweep (<code>static</code> / <code>dynamic</code> / <code>guided</code> and chunk sizes) to balance overhead vs. load imbalance.</li>
+<li>Data-layout and traversal refactoring to improve cache behavior in the parallel force-compute path.</li>
+</ul>
+<hr>
+<h2>Ablation Notes (What We Tried)</h2>
+<h3>1. Geometric Clustering (K-Means)</h3>
+<p>Before Morton sorting, K-Means was tested to improve spatial locality before tree insertion.</p>
+<p><strong>Measured result on UPPMAX</strong> ($N=50,000$, 8 threads):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Configuration</th>
+<th style="text-align:left">Wall Time (avg 3 runs)</th>
+<th style="text-align:left">Force Compute</th>
+<th style="text-align:left">K-Means Overhead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">k=0 (Morton, no KM)</td>
+<td style="text-align:left"><code>0.05s</code></td>
+<td style="text-align:left"><code>0.0094s</code></td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left">k=32 (K-Means enabled)</td>
+<td style="text-align:left"><code>0.08s</code></td>
+<td style="text-align:left"><code>0.0152s</code></td>
+<td style="text-align:left"><code>0.0132s</code></td>
+</tr>
+</tbody>
+</table>
+<p>Result: K-Means increased total runtime by about <code>60%</code> on this UPPMAX test, and the added preprocessing cost was not offset by better traversal time. The implementation remains in <code>core/kmeans.c</code> as an experiment; runtime default is still <code>k=0</code> (disabled).
+This ablation result was not retained in the default path: iterative clustering added measurable overhead, while Morton ordering remained the lower-overhead locality improvement.</p>
+<h3>2. Static vs. Dynamic Scheduling</h3>
+<p>Static scheduling assigned fixed particle ranges to threads. Dynamic scheduling was expected to help when per-particle traversal cost became imbalanced.</p>
+<p><strong>Measured result on UPPMAX</strong> (<code>N=100,000</code>, 16 threads, chunk size <code>128</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Configuration</th>
+<th style="text-align:left">Wall Time</th>
+<th style="text-align:left">Force Compute</th>
+<th style="text-align:left">Tree Build</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>static,128</code></td>
+<td style="text-align:left"><code>0.09s</code></td>
+<td style="text-align:left"><code>0.0107s</code></td>
+<td style="text-align:left"><code>0.0221s</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>dynamic,128</code></td>
+<td style="text-align:left"><code>0.09s</code></td>
+<td style="text-align:left"><code>0.0102s</code></td>
+<td style="text-align:left"><code>0.0221s</code></td>
+</tr>
+</tbody>
+</table>
+<p>Outcome: on this UPPMAX measurement, <code>static</code> and <code>dynamic</code> were effectively tied at end-to-end runtime, with only a small force-compute advantage for <code>dynamic</code>. <code>schedule(dynamic, 128)</code> remains the repository default, but this is now a conservative default choice rather than a strong claimed speedup.</p>
+<hr>
+<h2>Numerical Integrity &amp; Verification</h2>
+<ol>
+<li><strong>Numerical Parity Check</strong>: At $\theta=0$, v1 and v5 show relative error $&lt; 10^{-16}$.</li>
+<li><strong>Precision choice</strong>: Particle state is stored in <code>double</code>, which helps reduce accumulated numerical drift relative to <code>float</code> during longer runs.</li>
+<li><strong>Stochastic Sampling</strong>: For large $N$, <code>scripts/accuracy.py</code> randomly samples particle forces across versions to verify convergence within tolerance.</li>
+<li><strong>Integrator choice</strong>: Velocity Verlet was used as a stable and efficient baseline for this project.</li>
+</ol>
+<p>Verification commands:</p>
+<pre><code class="language-bash"># smoke test
+./build/nbody_simulate 5 128 data/inputs/smoke_128.gal 1 0.001 1 0.5 0
+
+# compare two outputs
+python3 scripts/accuracy.py data/ref_v1.gal data/result_v5.gal
+</code></pre>
+<hr>
+<h2>Project Infrastructure</h2>
+<h3>Structure</h3>
+<ul>
+<li><code>v1_naive.c</code> ... <code>v5_parallel.c</code>: Core evolution stages.</li>
+<li><code>core/</code>: Shared infrastructure (QuadTree, Arena, IO).</li>
+<li><code>data/inputs/</code>: Input and benchmark datasets.</li>
+<li><code>data/outputs/</code>: Simulation outputs.</li>
+<li><code>data/metrics/</code>: Structured benchmark summaries (<code>*.json</code>).</li>
+<li><code>scripts/</code>: Diagnostic, verification, and visualization tools (<code>accuracy.py</code>, <code>benchmark_suite.py</code>, <code>benchmark_full_suite.py</code>, <code>benchmark_ablation.py</code>, <code>plot_scaling.py</code>, <code>plot_roofline.py</code>, <code>generate_data.py</code>).</li>
+</ul>
+<h3>Build</h3>
+<pre><code class="language-bash">mkdir -p build &amp;&amp; cd build
+cmake ..
+cmake --build . -j
+</code></pre>
+<h3>Run</h3>
+<pre><code class="language-bash">./build/nbody_simulate 5 100000 data/inputs/input_100k.gal 1 0.001 8 0.5 0
+</code></pre>
+<h3>Smoke Test</h3>
+<pre><code class="language-bash">./build/nbody_simulate 5 128 data/inputs/smoke_128.gal 1 0.001 1 0.5 0
+</code></pre>
+<h3>UPPMAX Deployment</h3>
+<p>Sync the project to UPPMAX with <code>rsync</code>:</p>
+<pre><code class="language-bash">bash scripts/uppmax_sync.sh &lt;user@host&gt; &lt;remote_dir&gt;
+</code></pre>
+<p>On UPPMAX, submit the benchmark job from the project root:</p>
+<pre><code class="language-bash">sbatch -A &lt;uppmax-account&gt; scripts/uppmax_benchmark.sbatch
+</code></pre>
+<p>The batch job:</p>
+<ul>
+<li>builds a release binary in <code>build-uppmax/</code></li>
+<li>generates any missing benchmark inputs</li>
+<li>runs the full diagnostic + scaling suite by default</li>
+<li>writes results to <code>data/metrics/uppmax_full_results.json</code></li>
+</ul>
+<p>For a step-by-step SSH and job-submission guide, see <a href="/Users/ymlin/Downloads/003-Study/137-Projects/05-nBody-Problem-Simulation/UPPMAX.md"><code>UPPMAX.md</code></a>.</p>
+
+  </div>
+
+  <div style="height: 4rem;"></div>
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p class="footer-greeting">Spring greetings</p>
+    <p class="footer-sub">Welcome to write</p>
+    <div class="footer-links">
+      
+      <a href="/">Home</a>
+      
+      <a href="/posts/">Posts</a>
+      
+      <a href="/projects/">Projects</a>
+      
+      <a href="/life/">Life</a>
+      
+      <a href="/about/">About</a>
+      
+    </div>
+    <p class="footer-copy">© 2026 Linrae · Built with Eleventy · Hosted on GitHub Pages</p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

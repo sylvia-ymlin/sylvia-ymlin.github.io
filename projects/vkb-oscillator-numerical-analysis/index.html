@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linrae&#39;s World</title>
+  <meta name="description" content="An explorer who codes, writes, and wanders." />
+  <meta name="author" content="Linrae" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Linrae&#39;s World" />
+  <meta property="og:description" content="An explorer who codes, writes, and wanders." />
+  <meta property="og:image" content="/assets/img/avatar.png" />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/avatar.png" type="image/png" />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-logo">
+    <a href="/">
+      <img src="/assets/img/avatar.png" alt="Linrae" class="nav-avatar" />
+      <span class="nav-site-name">Linrae</span>
+    </a>
+  </div>
+
+  <ul class="nav-links">
+    
+    <li><a href="/">Home</a></li>
+    
+    <li><a href="/posts/">Posts</a></li>
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/life/">Life</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+  </ul>
+
+  <div class="nav-right">
+    <a href="https://github.com/sylvia-ymlin" target="_blank" rel="noopener" class="nav-icon" title="GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- Main content -->
+<main>
+  
+<div class="container">
+  <a href="/projects/" class="back-link">← Projects</a>
+
+  <div class="post-header">
+    <p class="post-category">Project</p>
+    <h1 class="post-title">vkb-oscillator-numerical-analysis</h1>
+    <div class="post-meta-row">
+      
+      <span class="post-meta-item">Python</span>
+      
+      
+      <a href="https://github.com/sylvia-ymlin/vkb-oscillator-numerical-analysis" target="_blank" rel="noopener" class="post-meta-item" style="color: var(--accent);">View on GitHub →</a>
+    </div>
+    
+  </div>
+
+  
+  <div class="hero-banner" style="margin-bottom: 2rem;">
+    <img src="https://raw.githubusercontent.com/sylvia-ymlin/vkb-oscillator-numerical-analysis/main/figures/assignment_a_ode.png" alt="vkb-oscillator-numerical-analysis" class="hero-banner-img">
+  </div>
+  
+
+  <div class="prose">
+    <h1>Scientific Computing, 2023 — Project 2: Genetic Oscillator</h1>
+<h2>1. Background</h2>
+<p>The VKB circadian clock model (Vilar et al., 2002) describes an activator–repressor genetic oscillator via a 16-reaction mass-action network, with demonstrated noise resistance through deterministic and stochastic simulations. While the original work derives a 2-variable quasi-steady state approximation (QSSA) reduction in $(R,C)$, its validity was only established for the sustained oscillation regime ($s_R = 0.2$).</p>
+<p>This work first reproduces the paper's core findings (Tasks A–D) across two characteristic regimes: $s_R = 0.2$ (sustained deterministic oscillations) and $s_R = 0.03$ (stable ODE equilibrium with noise-induced oscillations). We then evaluate whether the low-dimensional QSSA preserves the full system's qualitative dynamical properties near the steady–oscillatory transition.</p>
+<h2>2. Assignment tasks</h2>
+<h3>Task A: Deterministic simulation and solver comparison</h3>
+<p>The 9D ODE is integrated at $s_R = 0.2$ for 400 h using BDF with analytical Jacobian. The trajectory reproduces the sustained ~24 h oscillations reported in Vilar et al. (Figure 1).</p>
+<div align="center">
+<img src="figures/assignment_a_ode.png" width="500" alt="Deterministic ODE">
+<p><strong>Figure 1.</strong> ODE trajectory (400 h) for activator A and repressor R at $s_R = 0.2$.</p>
+</div>
+<p>Three solvers are benchmarked over a 48 h simulation with internal step sizes recorded (Figure 2): explicit RK45 (designed for non-stiff systems) and implicit BDF and Radau (designed for stiff systems). During steep dynamical phases, RK45 requires step sizes as small as $10^{-3}$ h, while BDF and Radau take steps up to $1,\mathrm{h}$ during slow phases — consistent with the stiffness of the system.</p>
+<div align="center">
+<img src="figures/solver_step_sizes.png" width="500" alt="Solver step sizes">
+<p><strong>Figure 2.</strong> Internal step sizes $\Delta t$ for RK45, BDF, and Radau over 48 h.</p>
+</div>
+<p>These benchmarks also illustrate the performance trade-offs between the chosen solvers (see Figure 3). BDF provides faster execution (~0.12 s) with errors of $10^{-4}$–$10^{-6}$, while Radau achieves higher precision ($10^{-8}$–$10^{-14}$) at the cost of nearly double the runtime (~0.21 s). This difference justifies using BDF for extended simulations and Radau for tasks requiring high-precision eigenvalue computations.</p>
+<div align="center">
+<img src="figures/solver_errors.png" width="500" alt="Solver errors">
+<p><strong>Figure 3.</strong> Trajectory error for BDF and Radau vs. high-precision RK45 reference ($\texttt{rtol}=10^{-12}$, $\texttt{atol}=10^{-14}$).</p>
+</div>
+<h3>Task B: Stochastic simulation at $s_R = 0.2$</h3>
+<p>The SSA is run using GillesPy2 with the same 16 reactions. Three independent 400 h trajectories (Figure 4) oscillate in phase with the ODE limit cycle but show stochastic phase drift and amplitude variation.</p>
+<div align="center">
+<img src="figures/assignment_b_ssa.png" width="500" alt="Stochastic SSA">
+<p><strong>Figure 4.</strong> Three SSA trajectories (400 h), A and R at $s_R = 0.2$.</p>
+</div>
+<h3>Task C: Noise-induced oscillations at $s_R = 0.03$</h3>
+<p>At $s_R = 0.03$, the deterministic ODE converges to a stable equilibrium while SSA trajectories remain oscillatory (Figure 5). All Jacobian eigenvalues at the equilibrium have negative real parts (Figure 6), confirming the fixed point's linear stability — the SSA oscillations are driven purely by intrinsic stochastic fluctuations.</p>
+<div align="center">
+<img src="figures/assignment_c_noise.png" width="500" alt="Noise-Induced Oscillations">
+<p><strong>Figure 5.</strong> ODE vs SSA at $s_R = 0.03$. The ODE decays to steady state; SSA continues to oscillate.</p>
+</div>
+<div align="center">
+<img src="figures/stiffness_comparison_part_c.png" width="500" alt="Jacobian eigenvalue spectra">
+<p><strong>Figure 6.</strong> Jacobian eigenvalue spectra along trajectories at $s_R = 0.03$ and $s_R = 0.2$.</p>
+</div>
+<h3>Task D: When to use ODE vs SSA</h3>
+<p>These results define the applicable regimes of the ODE and SSA models, and confirm that the full 9D ODE and 2D QSSA agree qualitatively at both extreme $s_R$ values. This motivates our extension: evaluating whether the QSSA reduction preserves the full system's attractor structure in the intermediate parameter regime between steady and oscillatory behaviour.</p>
+<hr>
+<h2>3. Extension: Attractor structure of the full vs. reduced model</h2>
+<p>The paper's 2D QSSA reduces the 9D system to $(R, C)$ by assuming the activator species reach quasi-steady state on a fast timescale. Tasks A–D confirm that both models agree at the two well-studied extremes ($s_R = 0.2$ and $s_R = 0.03$). This extension investigates whether the reduced and full models share the same attractor structure in the intermediate parameter regime.</p>
+<p>The analysis focuses on $s_R = 0.088$, a value between the two well-characterised regimes where the qualitative behaviour of neither model is guaranteed a priori.</p>
+<p><strong>Step 1 — Trajectory comparison</strong></p>
+<p>Both models are simulated at $s_R = 0.2$, $0.03$, and $0.088$ from their respective default initial conditions — the biological IC for the full model and the zero state for the reduced model (Figure 7). At $s_R = 0.088$, their long-term behaviour diverges: the reduced model decays to a stable equilibrium, while the full model sustains persistent oscillations. This divergence motivates a direct test of attractor coexistence in the full model.</p>
+<div align="center">
+<img src="figures/reduction_comparison.png" width="500" alt="Reduction comparison">
+<p><strong>Figure 7.</strong> Full vs. reduced model trajectories (activator $A$, top; repressor $R$, bottom) at $s_R = 0.2$, $0.03$, and $0.088$ (left to right). At $s_R = 0.088$ (rightmost column) the two models diverge qualitatively.</p>
+</div>
+<p><strong>Step 2 — Bistability in the full model</strong></p>
+<p>To test whether both an equilibrium and a limit cycle can coexist in the full model at $s_R = 0.088$, 72 initial conditions are integrated: one biological IC from the reference, 64 perturbations of the equilibrium point at four amplitude scales (16 samples per scale, RNG seed 42), and 7 axis-aligned perturbations — all within biologically plausible concentration ranges. Of these, 39 trajectories converge to a limit cycle and 33 to the equilibrium, confirming the coexistence of two stable attractors. The reduced model shows no such coexistence — all initial conditions tested converge to the equilibrium (Figure 8).</p>
+<div align="center">
+<img src="figures/basin_comparison_sR_0.088.png" width="500" alt="Basin comparison">
+<p><strong>Figure 8.</strong> Phase-space comparison at $s_R = 0.088$. Left: all reduced-model trajectories converge to $(R_0, C_0)$. Right: full-model trajectories converge to either the equilibrium or a limit cycle depending on the initial condition.</p>
+</div>
+<p><strong>Step 3 — Basin of attraction</strong></p>
+<p>To characterise the basin structure globally, a 50×50 grid of initial conditions is scanned on a large $(R,C)$ slice. Each point is lifted to 9D via QSSA and integrated to convergence — 2500 independent ODE solves. The scan confirms that the two basins occupy distinct, well-separated regions of phase space (Figure 9). Nullclines overlaid are from the reduced (2D QSSA) model.</p>
+<div align="center">
+<img src="figures/basin_grid_sR_0.088.png" width="500" alt="Basin grid scan">
+<p><strong>Figure 9.</strong> Full-model basin of attraction scan on the $(R,C)$ plane at $s_R = 0.088$. Hatching distinguishes convergence to the equilibrium vs. the limit cycle.</p>
+</div>
+<hr>
+<h2>4. Conclusion</h2>
+<p>Solver benchmarking confirms BDF is well-suited for long-time integration of this stiff biochemical system, while Radau delivers higher accuracy for high-precision eigenvalue computations.</p>
+<p>ODE and SSA models have distinct applicable regimes: the mass-action ODE reliably captures dynamics in the high-molecule-count oscillatory regime, while SSA is required to resolve noise-induced oscillations near the stable deterministic equilibrium.</p>
+<p>The 2D QSSA matches the full 9D model at both well-characterised extreme regimes, but fails qualitatively in the intermediate transition region. At $s_R = 0.088$, the full model exhibits bistability — a stable equilibrium and a stable limit cycle coexist — while the reduced model supports only a single stable fixed point. The coexistence of these two attractors suggests the system is operating near a bifurcation point, though a systematic analysis tracking attractor transitions across $s_R$ lies beyond the scope of this project. This structural loss of bistability indicates that the reduced model does not preserve the full system's attractor structure, demonstrating that the QSSA must be used with caution outside the strongly oscillatory or strongly stable regimes. Mechanistically, this is because the QSSA algebraic substitution fixes the fast-variable manifold and cannot capture the topological change in the slow manifold that underlies the transition to bistability near the bifurcation point.</p>
+<hr>
+<h2>Appendix</h2>
+<h3>Appendix 1: 16-reaction network</h3>
+<p>The following reactions are shared by the 9-variable ODE and the Gillespie SSA.</p>
+<div id="appendix-table-1" align="center">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Reaction</th>
+<th style="text-align:left">Propensity / Rate</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$A + R \xrightarrow{\gamma_C} C$</td>
+<td style="text-align:left">$\gamma_C A R$</td>
+<td style="text-align:left">Complex formation</td>
+</tr>
+<tr>
+<td style="text-align:left">$A \xrightarrow{\delta_A} \emptyset$</td>
+<td style="text-align:left">$\delta_A A$</td>
+<td style="text-align:left">Activator degradation</td>
+</tr>
+<tr>
+<td style="text-align:left">$C \xrightarrow{\delta_A} R$</td>
+<td style="text-align:left">$\delta_A C$</td>
+<td style="text-align:left">Complex degradation (A)</td>
+</tr>
+<tr>
+<td style="text-align:left">$R \xrightarrow{\delta_R} \emptyset$</td>
+<td style="text-align:left">$\delta_R R$</td>
+<td style="text-align:left">Repressor degradation</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_A + A \xrightarrow{\gamma_A} D_A'$</td>
+<td style="text-align:left">$\gamma_A D_A A$</td>
+<td style="text-align:left">Promoter binding (A)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_R + A \xrightarrow{\gamma_R} D_R'$</td>
+<td style="text-align:left">$\gamma_R D_R A$</td>
+<td style="text-align:left">Promoter binding (R)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_A' \xrightarrow{\theta_A} D_A + A$</td>
+<td style="text-align:left">$\theta_A D_A'$</td>
+<td style="text-align:left">Promoter dissociation (A)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_R' \xrightarrow{\theta_R} D_R + A$</td>
+<td style="text-align:left">$\theta_R D_R'$</td>
+<td style="text-align:left">Promoter dissociation (R)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_A \xrightarrow{\alpha_A} D_A + M_A$</td>
+<td style="text-align:left">$\alpha_A D_A$</td>
+<td style="text-align:left">Transcription (A, basal)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_A' \xrightarrow{\alpha_A'} D_A' + M_A$</td>
+<td style="text-align:left">$\alpha_A' D_A'$</td>
+<td style="text-align:left">Transcription (A, active)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_R \xrightarrow{\alpha_R} D_R + M_R$</td>
+<td style="text-align:left">$\alpha_R D_R$</td>
+<td style="text-align:left">Transcription (R, basal)</td>
+</tr>
+<tr>
+<td style="text-align:left">$D_R' \xrightarrow{\alpha_R'} D_R' + M_R$</td>
+<td style="text-align:left">$\alpha_R' D_R'$</td>
+<td style="text-align:left">Transcription (R, active)</td>
+</tr>
+<tr>
+<td style="text-align:left">$M_A \xrightarrow{\delta_{M_A}} \emptyset$</td>
+<td style="text-align:left">$\delta_{M_A} M_A$</td>
+<td style="text-align:left">mRNA degradation (A)</td>
+</tr>
+<tr>
+<td style="text-align:left">$M_R \xrightarrow{\delta_{M_R}} \emptyset$</td>
+<td style="text-align:left">$\delta_{M_R} M_R$</td>
+<td style="text-align:left">mRNA degradation (R)</td>
+</tr>
+<tr>
+<td style="text-align:left">$M_A \xrightarrow{\beta_A} M_A + A$</td>
+<td style="text-align:left">$\beta_A M_A$</td>
+<td style="text-align:left">Translation (A)</td>
+</tr>
+<tr>
+<td style="text-align:left">$M_R \xrightarrow{\beta_R} M_R + R$</td>
+<td style="text-align:left">$\beta_R M_R$</td>
+<td style="text-align:left">Translation (R)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Appendix 2: Quick start and reproducibility</h3>
+<p><strong>Environment:</strong> Python <strong>3.9+</strong> recommended.</p>
+<pre><code class="language-bash">conda create -n genetic-oscillators python=3.9
+conda activate genetic-oscillators
+pip install -r requirements.txt
+</code></pre>
+<p><strong>Pipelines</strong></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>python main.py all</code></td>
+<td>Lite: figures 1–8 (no 50×50 grid)</td>
+</tr>
+<tr>
+<td><code>python main.py all --full</code></td>
+<td>Full: adds Figure 9 (50×50 basin scan)</td>
+</tr>
+<tr>
+<td><code>python main.py basin-grid</code></td>
+<td>Only 50×50 basin scan + Fig. 9</td>
+</tr>
+<tr>
+<td><code>python main.py basin-grid --plot-only</code></td>
+<td>Replot Fig. 9 from cached results</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cached data:</strong> The 50×50 basin scan is saved as <code>materials/basin_scan_sR_0.088_50x50.pkl</code>. Regenerate from scratch with:</p>
+<pre><code class="language-bash">python main.py basin-grid
+</code></pre>
+<h2>References</h2>
+<p>[1] Vilar, J. M., Kueh, H. Y., Barkai, N., &amp; Leibler, S. (2002). Mechanisms of noise-resistance in genetic oscillators. <em>PNAS</em>, 99(9), 5988-5992.</p>
+
+  </div>
+
+  <div style="height: 4rem;"></div>
+</div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p class="footer-greeting">Spring greetings</p>
+    <p class="footer-sub">Welcome to write</p>
+    <div class="footer-links">
+      
+      <a href="/">Home</a>
+      
+      <a href="/posts/">Posts</a>
+      
+      <a href="/projects/">Projects</a>
+      
+      <a href="/life/">Life</a>
+      
+      <a href="/about/">About</a>
+      
+    </div>
+    <p class="footer-copy">© 2026 Linrae · Built with Eleventy · Hosted on GitHub Pages</p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
