@@ -751,42 +751,45 @@ footer {
   overflow: hidden;
 }
 
-/* Cover figure */
+/* Monogram cover */
 .project-cover {
   width: 100%;
-  height: 140px;
-  overflow: hidden;
+  height: 110px;
   flex-shrink: 0;
-}
-.project-cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-.project-card:hover .project-cover img {
-  transform: scale(1.04);
-}
-
-/* Language-based gradient fallback */
-.project-cover--lang {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
 }
-.project-cover--lang[data-lang="Python"]         { background: linear-gradient(135deg, #3572A520 0%, #3572A540 100%); }
-.project-cover--lang[data-lang="JavaScript"]     { background: linear-gradient(135deg, #f1e05a20 0%, #f1e05a40 100%); }
-.project-cover--lang[data-lang="TypeScript"]     { background: linear-gradient(135deg, #3178c620 0%, #3178c640 100%); }
-.project-cover--lang[data-lang="C"]              { background: linear-gradient(135deg, #55555520 0%, #55555540 100%); }
-.project-cover--lang[data-lang="MATLAB"]         { background: linear-gradient(135deg, #e1673720 0%, #e1673740 100%); }
-.project-cover--lang[data-lang="Jupyter Notebook"] { background: linear-gradient(135deg, #DA5B0B20 0%, #DA5B0B40 100%); }
-.project-cover-lang-label {
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
+
+/* Language tints */
+.project-cover[data-lang="Python"]           { background: #e9eef5; }
+.project-cover[data-lang="JavaScript"]       { background: #f5f2e0; }
+.project-cover[data-lang="TypeScript"]       { background: #e8eef7; }
+.project-cover[data-lang="C"]                { background: #ebebeb; }
+.project-cover[data-lang="MATLAB"]           { background: #f5ede7; }
+.project-cover[data-lang="Jupyter Notebook"] { background: #f5ece5; }
+
+/* Large ghost monogram */
+.project-monogram {
   font-family: var(--font-mono);
+  font-size: 5.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--text);
+  opacity: 0.07;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.project-card:hover .project-monogram {
+  opacity: 0.11;
+  transform: scale(1.05);
 }
 
 /* Card body (below cover) */
